@@ -2,7 +2,7 @@ import type {
   CollectStatuses,
   CronJobs,
   Result,
-} from "../../declarations/observatory/observatory.did";
+} from "../../declarations/observatory/observatory.did.js";
 
 const filterSegmentStatus = ({
   segmentStatus,
