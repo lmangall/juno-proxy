@@ -1,5 +1,5 @@
 import {observatoryActor} from "../utils/actor.utils.js";
-import {filterStatuses} from "../utils/status.utils";
+import {filterStatuses} from "../utils/status.utils.js";
 
 export const collectStatuses = async () => {
   try {
