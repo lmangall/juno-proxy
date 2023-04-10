@@ -1,7 +1,6 @@
 import {
   Actor,
   HttpAgent,
-  type ActorMethod,
   type ActorSubclass,
   type Identity,
 } from "@dfinity/agent";
@@ -26,9 +25,9 @@ const icAgent = async (): Promise<HttpAgent> => {
   return new HttpAgent({identity, fetch, host: "https://icp0.io"});
 };
 
-export const observatoryActor = async <
-  T = Record<string, ActorMethod>,
->(): Promise<ActorSubclass<T>> => {
+export const observatoryActor = async (): Promise<
+  ActorSubclass<idlFactory>
+> => {
   const canisterId = process.env.OBSERVATORY_CANISTER_ID as string;
 
   const agent = await icAgent();
