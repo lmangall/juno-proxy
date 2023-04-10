@@ -15,8 +15,6 @@ const initIdentity = (): Identity => {
   const controller = process.env.CRON_CONTROLLER as string;
   const token = JSON.parse(controller);
 
-  console.log(token);
-
   return Ed25519KeyIdentity.fromParsedJson(token);
 };
 
@@ -33,13 +31,7 @@ export const observatoryActor = async <
 >(): Promise<ActorSubclass<T>> => {
   const canisterId = process.env.OBSERVATORY_CANISTER_ID as string;
 
-  console.log({canisterId});
-
   const agent = await icAgent();
-
-  console.log("2");
-
-  console.log("3", idlFactory);
 
   return Actor.createActor(idlFactory, {
     agent,
