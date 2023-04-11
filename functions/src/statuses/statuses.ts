@@ -12,7 +12,7 @@ export const collectStatuses = async () => {
 
     const actor = await observatoryActor();
     const statuses = await actor.collect_statuses({
-      time_delta: [oneMin],
+      time_delta: [15n * oneMin],
     });
 
     const filteredStatuses: CollectStatuses[] = statuses.filter(filterStatuses);
