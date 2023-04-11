@@ -24,7 +24,10 @@ const filterSegmentStatus = ({
   );
 };
 
-export const filterStatuses = ({statuses, cron_jobs}: CollectStatuses) => {
+export const filterStatuses = ({
+  statuses,
+  cron_jobs,
+}: CollectStatuses): boolean => {
   // If there was an error we want to notify
   if ("Err" in statuses) {
     return true;
