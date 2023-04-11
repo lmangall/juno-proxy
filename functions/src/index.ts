@@ -3,5 +3,5 @@ import {collectStatuses} from "./statuses/statuses.js";
 
 export const statuses = functions
   .runWith({secrets: ["CRON_CONTROLLER", "MAIL_PWD"]})
-  .pubsub.schedule("every 1 minutes")
+  .pubsub.schedule("every 15 minutes")
   .onRun(collectStatuses);
