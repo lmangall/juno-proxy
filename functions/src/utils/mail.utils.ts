@@ -1,13 +1,21 @@
 import {createTransport} from "nodemailer";
 import * as Mail from "nodemailer/lib/mailer";
 import * as SMTPTransport from "nodemailer/lib/smtp-transport";
+import type {MailMessage} from "../types/mail.js";
 
-export const sendMail = async (mailTo: string) => {
+export const sendMail = async ({
+  mailTo,
+  mailContent: {html, text},
+}: {
+  mailTo: string;
+  mailContent: MailMessage;
+}) => {
   const mailOptions = {
     from: process.env.MAIL_FROM,
     to: mailTo,
     subject: process.env.MAIL_SUBJECT,
-    html: `<p>${"Hello World"}</p>`,
+    html,
+    text,
   };
 
   const transporter: Mail = createTransport({

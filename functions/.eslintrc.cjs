@@ -27,5 +27,6 @@ module.exports = {
     indent: ["error", 2],
     "quote-props": ["error", "as-needed"],
     camelcase: "off",
+    "operator-linebreak": "off",
   },
 };
