@@ -21,7 +21,7 @@ const segmentMessage = ({
     return {
       text: `${segmentType} status error: ${segmentStatus.Err}`,
       // eslint-disable-next-line max-len
-      html: `<p>${segmentType} status error: ${segmentStatus.Err}</p>`,
+      html: `<li>${segmentType} status error: ${segmentStatus.Err}</li>`,
     };
   }
 
@@ -45,9 +45,9 @@ const segmentMessage = ({
         status.status.cycles,
       )} TCycles).`,
       // eslint-disable-next-line max-len
-      html: `<p>${segmentType} (<a href="${link}" target="_blank" rel="noopener noreferrer">${linkText}</a>) cycles running low (${formatTCycles(
+      html: `<li>${segmentType} (<a href="${link}" target="_blank" rel="noopener noreferrer">${linkText}</a>) cycles running low (${formatTCycles(
         status.status.cycles,
-      )} TCycles).</p>`,
+      )} TCycles).</li>`,
     };
   }
 
@@ -135,9 +135,16 @@ export const messages = ({
     ),
   );
 
+  const contentMessages = messages.filter(
+    (msg) => msg !== undefined,
+  ) as MailMessage[];
+
   return [
     ...intro,
-    ...(messages.filter((msg) => msg !== undefined) as MailMessage[]),
+    {
+      text: contentMessages.map(({text}) => text).join("\n"),
+      html: `<ul>${contentMessages.map(({html}) => html)}</ul>`,
+    },
     ...thanks,
     watermark,
   ];
