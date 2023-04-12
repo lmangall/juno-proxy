@@ -60,8 +60,8 @@ const sentence =
 
 const intro: MailMessage[] = [
   {
-    text: "Hey 👋,",
-    html: "<p>Hey 👋,</p>",
+    text: "Hey,",
+    html: "<p>Hey,</p>",
   },
   {
     text: sentence,
