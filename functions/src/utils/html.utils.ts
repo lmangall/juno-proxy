@@ -20,7 +20,6 @@ const segmentMessage = ({
   if ("Err" in segmentStatus) {
     return {
       text: `${segmentType} status error: ${segmentStatus.Err}`,
-      // eslint-disable-next-line max-len
       html: `<li>${segmentType} status error: ${segmentStatus.Err}</li>`,
     };
   }
