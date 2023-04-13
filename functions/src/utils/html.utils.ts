@@ -6,32 +6,33 @@ import {
 import type {MailMessage} from "../types/mail.js";
 import {formatTCycles} from "./cycles.utils.js";
 import {metadataName} from "./metadata.utils.js";
+import {lowCycles} from "./segment.utils.js";
 
 const segmentMessage = ({
   segmentStatus,
   cron_jobs,
-  segmentType,
+  type,
 }: {
   segmentStatus: Result;
   cron_jobs: CronJobs;
-  segmentType: "Satellite" | "Mission Control";
+  type: "mission_control" | "satellite";
 }): MailMessage | undefined => {
+  const segmentLabel: "Satellite" | "Mission Control" =
+    type === "satellite" ? "Satellite" : "Mission Control";
+
   // If there was an error we want to inform
   if ("Err" in segmentStatus) {
     return {
-      text: `${segmentType} status error: ${segmentStatus.Err}`,
-      html: `<li>${segmentType} status error: ${segmentStatus.Err}</li>`,
+      text: `${segmentLabel} status error: ${segmentStatus.Err}`,
+      html: `<li>${segmentLabel} status error: ${segmentStatus.Err}</li>`,
     };
   }
 
   const {Ok: status} = segmentStatus;
 
-  const minThreshold =
-    cron_jobs.statuses.cycles_threshold[0] ?? (500_000_000_000n as const);
-
-  if (status.status.cycles < minThreshold) {
+  if (lowCycles({status, type, cron_jobs})) {
     const link =
-      segmentType === "Satellite"
+      type === "satellite"
         ? `https://console.juno.build/overview/?s=${status.id.toText()}`
         : "https://console.juno.build/mission-control/";
 
@@ -40,11 +41,11 @@ const segmentMessage = ({
 
     return {
       // eslint-disable-next-line max-len
-      text: `${segmentType} (${status.id.toText()}) cycles running low (${formatTCycles(
+      text: `${segmentLabel} (${status.id.toText()}) cycles running low (${formatTCycles(
         status.status.cycles,
       )} TCycles).`,
       // eslint-disable-next-line max-len
-      html: `<li>${segmentType} (<a href="${link}" target="_blank" rel="noopener noreferrer">${linkText}</a>) cycles running low (${formatTCycles(
+      html: `<li>${segmentLabel} (<a href="${link}" target="_blank" rel="noopener noreferrer">${linkText}</a>) cycles running low (${formatTCycles(
         status.status.cycles,
       )} TCycles).</li>`,
     };
@@ -120,7 +121,7 @@ export const messages = ({
     segmentMessage({
       segmentStatus: mission_control,
       cron_jobs,
-      segmentType: "Mission Control",
+      type: "mission_control",
     }),
   );
 
@@ -129,7 +130,7 @@ export const messages = ({
       segmentMessage({
         segmentStatus: satellite,
         cron_jobs,
-        segmentType: "Satellite",
+        type: "satellite",
       }),
     ),
   );
