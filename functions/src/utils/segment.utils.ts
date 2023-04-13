@@ -21,20 +21,21 @@ export const lowCycles = ({
     return status.cycles < minThreshold;
   };
 
+  const defaultThreshold = cron_jobs.statuses.cycles_threshold[0] ?? 0n;
+
   if (type === "satellite") {
     const customConfig = cron_jobs.statuses.satellites.find(
       ([satelliteId]) => satelliteId.toString() === id.toText(),
     );
+
     return hasLowCycles(
       customConfig !== undefined
-        ? customConfig[1].cycles_threshold[0] ?? 0n
-        : 0n,
+        ? customConfig[1].cycles_threshold[0] ?? defaultThreshold
+        : defaultThreshold,
     );
   }
 
   return hasLowCycles(
-    cron_jobs.statuses.mission_control_cycles_threshold[0] ??
-      cron_jobs.statuses.cycles_threshold[0] ??
-      0n,
+    cron_jobs.statuses.mission_control_cycles_threshold[0] ?? defaultThreshold,
   );
 };
