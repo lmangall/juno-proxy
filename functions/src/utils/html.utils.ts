@@ -55,7 +55,7 @@ const segmentMessage = ({
 
 const sentence =
   // eslint-disable-next-line max-len
-  "The Juno Observatory has detected that one or more of your mission controls or satellites are running low on cycles. To prevent any service interruptions, we recommend that you top up your resources immediately.";
+  "The Observatory has detected that one or more of your mission controls or satellites are running low on cycles. To prevent any service interruptions, we recommend that you top up your resources immediately.";
 
 const intro: MailMessage[] = [
   {
@@ -71,11 +71,11 @@ const intro: MailMessage[] = [
 const thanks: MailMessage[] = [
   {
     text: "Thank you,",
-    html: "<p>Thank you,</p>",
+    html: "<p>Thank you,<br/>Juno</p>",
   },
   {
-    text: "David",
-    html: "<p>David</p>",
+    text: "Juno",
+    html: "<hr />",
   },
 ];
 
@@ -91,9 +91,9 @@ export const messages = ({
   }).format(at);
 
   const watermark: MailMessage = {
-    text: `Status at ${date}.`,
-    html: `<p><small>Status at ${date}</small></p>
-<p><a href="https://console.juno.build" target="_blank" rel="noopener noreferrer"><small>Juno Console</small></a></p>`,
+    text: `Status collected at ${date}.`,
+    html: `<p><small>Status collected at ${date}</small><br/>
+<a href="https://console.juno.build" target="_blank" rel="noopener noreferrer"><small>Open Console</small></a></p>`,
   };
 
   // If there was an error we want to notify
