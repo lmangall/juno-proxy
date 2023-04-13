@@ -21,6 +21,10 @@ export const collectStatuses = async () => {
       ({cron_jobs: {metadata}}) => metadataEmail(metadata) !== undefined,
     );
 
+    if (notifications.length === 0) {
+      return;
+    }
+
     const promises = notifications.map((statuses) =>
       sendMail({
         mailTo: metadataEmail(statuses.cron_jobs.metadata),
@@ -32,6 +36,4 @@ export const collectStatuses = async () => {
   } catch (err: unknown) {
     console.error(err);
   }
-
-  return null;
 };
