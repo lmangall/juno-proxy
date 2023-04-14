@@ -1,5 +1,5 @@
 import {
-  CollectStatuses,
+  ListStatuses,
   CronJobs,
   Result,
 } from "../../declarations/observatory/observatory.did.js";
@@ -84,7 +84,7 @@ export const messages = ({
   statuses,
   cron_jobs,
   timestamp,
-}: CollectStatuses): MailMessage[] => {
+}: ListStatuses): MailMessage[] => {
   const at = new Date(Number(timestamp / 1_000_000n));
   const date = new Intl.DateTimeFormat("en-US", {
     dateStyle: "long",
@@ -150,7 +150,7 @@ export const messages = ({
   ];
 };
 
-export const mailContent = (statuses: CollectStatuses): MailMessage =>
+export const mailContent = (statuses: ListStatuses): MailMessage =>
   messages(statuses).reduce(
     (acc, next) => ({
       text: `${acc.text}\n${next.text}`,

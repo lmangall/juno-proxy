@@ -1,5 +1,5 @@
 import type {
-  CollectStatuses,
+  ListStatuses,
   CronJobs,
   Result,
 } from "../../declarations/observatory/observatory.did.js";
@@ -27,7 +27,7 @@ const filterSegmentStatus = ({
 export const filterStatuses = ({
   statuses,
   cron_jobs,
-}: CollectStatuses): boolean => {
+}: ListStatuses): boolean => {
   // If there was an error we want to notify
   if ("Err" in statuses) {
     return true;
