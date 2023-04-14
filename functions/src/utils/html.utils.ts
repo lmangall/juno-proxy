@@ -56,7 +56,7 @@ const segmentMessage = ({
 
 const sentence =
   // eslint-disable-next-line max-len
-  "The Observatory has detected that one or more of your mission controls or satellites are running low on cycles. To prevent any service interruptions, we recommend that you top up your resources immediately.";
+  "The Juno's Observatory has detected that one or more of your mission controls or satellites are running low on cycles. To prevent any service interruptions, we recommend that you top up your resources immediately.";
 
 const intro: MailMessage[] = [
   {
@@ -102,9 +102,9 @@ export const messages = ({
     return [
       ...intro,
       {
-        text: "The Observatory was not able to call your mission control.",
+        text: "Juno's Observatory was not able to call your mission control.",
         // eslint-disable-next-line max-len
-        html: "<p>The Observatory was not able to call your mission control.</p>",
+        html: "<p>Juno's Observatory was not able to call your mission control.</p>",
       },
       ...thanks,
       watermark,
