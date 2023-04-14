@@ -1,6 +1,6 @@
 import {
-  ListStatuses,
   CronJobs,
+  ListStatuses,
   Result,
 } from "../../declarations/observatory/observatory.did.js";
 import type {MailMessage} from "../types/mail.js";

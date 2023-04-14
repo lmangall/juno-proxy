@@ -1,6 +1,6 @@
 import type {
-  ListStatuses,
   CronJobs,
+  ListStatuses,
   Result,
 } from "../../declarations/observatory/observatory.did.js";
 import {lowCycles} from "./segment.utils.js";
