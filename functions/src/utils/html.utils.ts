@@ -47,7 +47,7 @@ const segmentMessage = ({
       // eslint-disable-next-line max-len
       html: `<li>${segmentLabel} (<a href="${link}" target="_blank" rel="noopener noreferrer">${linkText}</a>) cycles running low (${formatTCycles(
         status.status.cycles,
-      )} TCycles).</li>`,
+      )} TCycles)</li>`,
     };
   }
 
@@ -143,7 +143,7 @@ export const messages = ({
     ...intro,
     {
       text: contentMessages.map(({text}) => text).join("\n"),
-      html: `<ul>${contentMessages.map(({html}) => html)}</ul>`,
+      html: `<ul>${contentMessages.map(({html}) => html).join("")}</ul>`,
     },
     ...thanks,
     watermark,
