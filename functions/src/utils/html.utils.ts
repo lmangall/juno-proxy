@@ -33,7 +33,7 @@ const segmentMessage = ({
   if (lowCycles({status, type, cron_jobs})) {
     const link =
       type === "satellite"
-        ? `https://console.juno.build/overview/?s=${status.id.toText()}`
+        ? `https://console.juno.build/satellite/?s=${status.id.toText()}`
         : "https://console.juno.build/mission-control/";
 
     const name = metadataName(status.metadata?.[0] ?? []);
