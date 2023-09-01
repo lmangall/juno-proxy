@@ -15,10 +15,19 @@ const segmentMessage = ({
 }: {
   segmentStatus: Result;
   cron_jobs: CronJobs;
-  type: "mission_control" | "satellite";
+  type: "mission_control" | "satellite" | "orbiter";
 }): MailMessage | undefined => {
-  const segmentLabel: "Satellite" | "Mission Control" =
-    type === "satellite" ? "Satellite" : "Mission Control";
+  let segmentLabel: string;
+  switch (type) {
+    case "satellite":
+      segmentLabel = "Satellite";
+      break;
+    case "orbiter":
+      segmentLabel = "Orbiter";
+      break;
+    default:
+      segmentLabel = "Mission Control";
+  }
 
   // If there was an error we want to inform
   if ("Err" in segmentStatus) {
@@ -31,10 +40,17 @@ const segmentMessage = ({
   const {Ok: status} = segmentStatus;
 
   if (lowCycles({status, type, cron_jobs})) {
-    const link =
-      type === "satellite"
-        ? `https://console.juno.build/satellite/?s=${status.id.toText()}`
-        : "https://console.juno.build/mission-control/";
+    let link: string;
+    switch (type) {
+      case "satellite":
+        link = `https://console.juno.build/satellite/?s=${status.id.toText()}`;
+        break;
+      case "orbiter":
+        link = "https://console.juno.build/analytics/";
+        break;
+      default:
+        link = "https://console.juno.build/mission-control/";
+    }
 
     const name = metadataName(status.metadata?.[0] ?? []);
     const linkText = name !== "" ? name : status.id.toText();
@@ -112,7 +128,7 @@ export const messages = ({
   }
 
   const {
-    Ok: {mission_control, satellites},
+    Ok: {mission_control, satellites, orbiters},
   } = statuses;
 
   const messages: (MailMessage | undefined)[] = [];
@@ -131,6 +147,16 @@ export const messages = ({
         segmentStatus: satellite,
         cron_jobs,
         type: "satellite",
+      }),
+    ),
+  );
+
+  (orbiters[0] ?? []).forEach((orbiter) =>
+    messages.push(
+      segmentMessage({
+        segmentStatus: orbiter,
+        cron_jobs,
+        type: "orbiter",
       }),
     ),
   );

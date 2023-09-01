@@ -12,7 +12,7 @@ export const lowCycles = ({
 }: {
   status: SegmentStatus;
   cron_jobs: CronJobs;
-  type: "mission_control" | "satellite";
+  type: "mission_control" | "satellite" | "orbiter";
 }): boolean => {
   const hasLowCycles = (threshold: bigint): boolean => {
     const minThreshold =
@@ -26,6 +26,18 @@ export const lowCycles = ({
   if (type === "satellite") {
     const customConfig = cron_jobs.statuses.satellites.find(
       ([satelliteId]) => satelliteId.toString() === id.toText(),
+    );
+
+    return hasLowCycles(
+      customConfig !== undefined
+        ? customConfig[1].cycles_threshold[0] ?? defaultThreshold
+        : defaultThreshold,
+    );
+  }
+
+  if (type === "orbiter") {
+    const customConfig = cron_jobs.statuses.orbiters.find(
+      ([orbiterId]) => orbiterId.toString() === id.toText(),
     );
 
     return hasLowCycles(

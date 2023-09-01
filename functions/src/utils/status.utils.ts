@@ -12,7 +12,7 @@ const filterSegmentStatus = ({
 }: {
   segmentStatus: Result;
   cron_jobs: CronJobs;
-  type: "mission_control" | "satellite";
+  type: "mission_control" | "satellite" | "orbiter";
 }): boolean => {
   // If there was an error we want to inform
   if ("Err" in segmentStatus) {
@@ -34,7 +34,7 @@ export const filterStatuses = ({
   }
 
   const {
-    Ok: {mission_control, satellites},
+    Ok: {mission_control, satellites, orbiters},
   } = statuses;
 
   // Mission control needs to be reported
@@ -56,5 +56,17 @@ export const filterStatuses = ({
     }),
   );
 
-  return satellite !== undefined;
+  if (satellite !== undefined) {
+    return true;
+  }
+
+  const orbiter = (orbiters[0] ?? []).find((orbiter) =>
+    filterSegmentStatus({
+      segmentStatus: orbiter,
+      cron_jobs,
+      type: "orbiter",
+    }),
+  );
+
+  return orbiter !== undefined;
 };
