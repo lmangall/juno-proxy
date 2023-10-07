@@ -5,10 +5,10 @@
   "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "https://github.com/buildwithjuno/cron"
+    "url": "https://github.com/junobuild/cron"
   },
   "bugs": {
-    "url": "https://github.com/buildwithjuno/cron/issues"
+    "url": "https://github.com/junobuild/cron/issues"
   },
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
