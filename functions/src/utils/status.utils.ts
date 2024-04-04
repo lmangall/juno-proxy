@@ -3,7 +3,7 @@ import type {
   ListStatuses,
   Result,
 } from "../../declarations/observatory/observatory.did.js";
-import {lowCycles} from "./segment.utils.js";
+import {lowCycles, running} from "./segment.utils.js";
 
 const filterSegmentStatus = ({
   segmentStatus,
@@ -21,7 +21,7 @@ const filterSegmentStatus = ({
 
   const {Ok: status} = segmentStatus;
 
-  return lowCycles({status, type, cron_jobs});
+  return running({status}) && lowCycles({status, type, cron_jobs});
 };
 
 export const filterStatuses = ({

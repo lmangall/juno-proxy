@@ -6,7 +6,10 @@ import type {
 const CYCLES_MIN_THRESHOLD = 500_000_000_000n as const;
 
 export const lowCycles = ({
-  status: {status, id},
+  status: {
+    status: {cycles},
+    id,
+  },
   type,
   cron_jobs,
 }: {
@@ -18,7 +21,7 @@ export const lowCycles = ({
     const minThreshold =
       threshold > CYCLES_MIN_THRESHOLD ? threshold : CYCLES_MIN_THRESHOLD;
 
-    return status.cycles < minThreshold;
+    return cycles < minThreshold;
   };
 
   const defaultThreshold = cron_jobs.statuses.cycles_threshold[0] ?? 0n;
@@ -51,3 +54,6 @@ export const lowCycles = ({
     cron_jobs.statuses.mission_control_cycles_threshold[0] ?? defaultThreshold,
   );
 };
+
+export const running = ({status: {status}}: {status: SegmentStatus}): boolean =>
+  "running" in status;
