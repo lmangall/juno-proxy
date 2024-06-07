@@ -73,7 +73,7 @@ const segmentMessage = ({
 
 const sentence =
   // eslint-disable-next-line max-len
-  "The Juno's Observatory has detected that one or more of your mission controls or satellites are running low on cycles. To prevent any service interruptions, we recommend that you top up your resources immediately.";
+  "The Juno's Observatory has detected that one or more of your modules are running low on cycles. To prevent any service interruptions, we recommend that you top up your resources immediately.";
 
 const intro: MailMessage[] = [
   {
