@@ -56,5 +56,10 @@ export const lowCycles = ({
   );
 };
 
-export const running = ({status: {status}}: {status: SegmentStatus}): boolean =>
-  "running" in status;
+export const running = ({
+  status: {
+    status: {status},
+  },
+}: {
+  status: SegmentStatus;
+}): boolean => "running" in status;
