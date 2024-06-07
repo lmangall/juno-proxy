@@ -5,6 +5,7 @@ import {mailContent} from "../utils/html.utils.js";
 import {sendMail} from "../utils/mail.utils.js";
 import {metadataEmail} from "../utils/metadata.utils.js";
 import {filterStatuses} from "../utils/status.utils.js";
+import {log, error} from "firebase-functions/logger";
 
 export const collectStatuses = async () => {
   try {
@@ -21,9 +22,14 @@ export const collectStatuses = async () => {
       ({cron_jobs: {metadata}}) => metadataEmail(metadata) !== undefined,
     );
 
+    log("NOTIFICATIONS ->", notifications);
+
     if (notifications.length === 0) {
+      log("No notifications collected.");
       return;
     }
+
+    log(`Sending ${notifications.length} notifications.`);
 
     const promises = notifications.map((statuses) =>
       sendMail({
@@ -33,7 +39,9 @@ export const collectStatuses = async () => {
     );
 
     await Promise.race(promises);
+
+    log("Notifications sent.");
   } catch (err: unknown) {
-    console.error(err);
+    error(err);
   }
 };
