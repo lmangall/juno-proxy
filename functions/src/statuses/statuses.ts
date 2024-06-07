@@ -1,35 +1,32 @@
-// eslint-disable-next-line max-len
-import type {ListStatuses} from "../../declarations/observatory/observatory.did.js";
+import {nonNullish} from "@junobuild/utils";
+import {error, log} from "firebase-functions/logger";
 import {observatoryActor} from "../utils/actor.utils.js";
 import {mailContent} from "../utils/html.utils.js";
 import {sendMail} from "../utils/mail.utils.js";
 import {metadataEmail} from "../utils/metadata.utils.js";
 import {filterStatuses} from "../utils/status.utils.js";
-import {log, error} from "firebase-functions/logger";
 
 export const collectStatuses = async () => {
   try {
     const oneMin = 60_000_000_000n;
 
-    const actor = await observatoryActor();
-    const statuses = await actor.list_statuses({
-      time_delta: [15n * oneMin],
+    const {list_statuses} = await observatoryActor();
+    const statuses = await list_statuses({
+      time_delta: [60n * oneMin],
     });
 
-    const filteredStatuses: ListStatuses[] = statuses.filter(filterStatuses);
+    const filteredStatuses = statuses.filter(filterStatuses);
 
-    const notifications = filteredStatuses.filter(
-      ({cron_jobs: {metadata}}) => metadataEmail(metadata) !== undefined,
+    const notifications = filteredStatuses.filter(({cron_jobs: {metadata}}) =>
+      nonNullish(metadataEmail(metadata)),
     );
-
-    log("NOTIFICATIONS ->", notifications);
 
     if (notifications.length === 0) {
       log("No notifications collected.");
       return;
     }
 
-    log(`Sending ${notifications.length} notifications.`);
+    log(`Sending ${notifications.length} notifications...`);
 
     const promises = notifications.map((statuses) =>
       sendMail({

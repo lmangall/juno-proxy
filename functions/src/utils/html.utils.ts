@@ -1,3 +1,4 @@
+import {nonNullish} from "@junobuild/utils";
 import {
   CronJobs,
   ListStatuses,
@@ -161,9 +162,7 @@ export const messages = ({
     ),
   );
 
-  const contentMessages = messages.filter(
-    (msg) => msg !== undefined,
-  ) as MailMessage[];
+  const contentMessages = messages.filter(nonNullish) as MailMessage[];
 
   return [
     ...intro,

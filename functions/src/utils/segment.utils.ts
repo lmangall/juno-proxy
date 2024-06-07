@@ -1,3 +1,4 @@
+import {nonNullish} from "@junobuild/utils";
 import type {
   CronJobs,
   SegmentStatus,
@@ -32,7 +33,7 @@ export const lowCycles = ({
     );
 
     return hasLowCycles(
-      customConfig !== undefined
+      nonNullish(customConfig)
         ? customConfig[1].cycles_threshold[0] ?? defaultThreshold
         : defaultThreshold,
     );
@@ -44,7 +45,7 @@ export const lowCycles = ({
     );
 
     return hasLowCycles(
-      customConfig !== undefined
+      nonNullish(customConfig)
         ? customConfig[1].cycles_threshold[0] ?? defaultThreshold
         : defaultThreshold,
     );

@@ -1,3 +1,4 @@
+import {nonNullish} from "@junobuild/utils";
 import type {
   CronJobs,
   ListStatuses,
@@ -56,7 +57,7 @@ export const filterStatuses = ({
     }),
   );
 
-  if (satellite !== undefined) {
+  if (nonNullish(satellite)) {
     return true;
   }
 
@@ -68,5 +69,5 @@ export const filterStatuses = ({
     }),
   );
 
-  return orbiter !== undefined;
+  return nonNullish(orbiter);
 };
