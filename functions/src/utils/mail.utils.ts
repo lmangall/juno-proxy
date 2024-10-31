@@ -20,8 +20,8 @@ export const sendMail = async ({
 
   const transporter: Mail = createTransport({
     host: process.env.MAIL_HOST as string,
-    port: 587,
-    secure: false, // STARTTLS
+    port: 465,
+    secure: true,
     auth: {
       type: "LOGIN",
       user: process.env.MAIL_FROM as string,
