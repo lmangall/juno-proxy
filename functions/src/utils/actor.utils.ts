@@ -4,8 +4,7 @@ import {
   type ActorSubclass,
   type Identity,
 } from "@dfinity/agent";
-// eslint-disable-next-line max-len
-import {Ed25519KeyIdentity} from "@dfinity/identity/lib/cjs/identity/ed25519.js";
+import {Ed25519KeyIdentity} from "@dfinity/identity";
 // eslint-disable-next-line import/default, max-len
 import {idlFactory} from "../../declarations/observatory/observatory.factory.did.js";
 
