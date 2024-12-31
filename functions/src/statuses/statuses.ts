@@ -1,4 +1,4 @@
-import {nonNullish} from "@junobuild/utils";
+import {nonNullish} from "@dfinity/utils";
 import {error, log} from "firebase-functions/logger";
 import {observatoryActor} from "../utils/actor.utils.js";
 import {mailContent} from "../utils/html.utils.js";

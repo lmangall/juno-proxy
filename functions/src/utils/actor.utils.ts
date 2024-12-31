@@ -22,7 +22,7 @@ const icAgent = async (): Promise<HttpAgent> => {
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore fetch
-  return new HttpAgent({identity, fetch, host: "https://icp0.io"});
+  return await HttpAgent.create({identity, fetch, host: "https://icp0.io"});
 };
 
 export const observatoryActor = async (): Promise<

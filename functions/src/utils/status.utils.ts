@@ -1,4 +1,4 @@
-import {nonNullish} from "@junobuild/utils";
+import {nonNullish} from "@dfinity/utils";
 import type {
   CronJobs,
   ListStatuses,
