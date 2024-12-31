@@ -19,7 +19,7 @@ const initIdentity = (): Identity => {
 const icAgent = async (): Promise<HttpAgent> => {
   const identity = initIdentity();
 
-  return await HttpAgent.create({identity, host: "https://icp0.io"});
+  return await HttpAgent.create({identity, host: "https://icp-api.io"});
 };
 
 export const observatoryActor = async (): Promise<
