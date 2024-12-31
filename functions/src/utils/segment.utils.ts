@@ -34,7 +34,7 @@ export const lowCycles = ({
 
     return hasLowCycles(
       nonNullish(customConfig)
-        ? customConfig[1].cycles_threshold[0] ?? defaultThreshold
+        ? (customConfig[1].cycles_threshold[0] ?? defaultThreshold)
         : defaultThreshold,
     );
   }
@@ -46,7 +46,7 @@ export const lowCycles = ({
 
     return hasLowCycles(
       nonNullish(customConfig)
-        ? customConfig[1].cycles_threshold[0] ?? defaultThreshold
+        ? (customConfig[1].cycles_threshold[0] ?? defaultThreshold)
         : defaultThreshold,
     );
   }
