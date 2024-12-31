@@ -6,7 +6,6 @@ import {
 } from "@dfinity/agent";
 // eslint-disable-next-line max-len
 import {Ed25519KeyIdentity} from "@dfinity/identity/lib/cjs/identity/ed25519.js";
-import fetch from "node-fetch";
 // eslint-disable-next-line import/default, max-len
 import {idlFactory} from "../../declarations/observatory/observatory.factory.did.js";
 
@@ -20,9 +19,7 @@ const initIdentity = (): Identity => {
 const icAgent = async (): Promise<HttpAgent> => {
   const identity = initIdentity();
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore fetch
-  return await HttpAgent.create({identity, fetch, host: "https://icp0.io"});
+  return await HttpAgent.create({identity, host: "https://icp0.io"});
 };
 
 export const observatoryActor = async (): Promise<
