@@ -6,6 +6,9 @@ import {sendMail} from "../utils/mail.utils.js";
 import {metadataEmail} from "../utils/metadata.utils.js";
 import {filterStatuses} from "../utils/status.utils.js";
 
+/**
+ * @deprecated
+ */
 export const collectStatuses = async () => {
   try {
     const oneMin = 60_000_000_000n;
