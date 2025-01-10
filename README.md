@@ -1,6 +1,8 @@
-# Juno Cron
+# Juno Proxy
 
-Firebase cron functions to collect statuses and send email notifications on [Juno].
+These Firebase functions act as a proxy for interfacing [Juno] with Web2 services.
+
+This proxy is required when third-party services, such as [Resend](https://resend.com/) — used for sending email notifications — do not support IPv6 or idempotency keys.
 
 ## License
 
