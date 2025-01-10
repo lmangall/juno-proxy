@@ -10,7 +10,8 @@
     "target": "esnext",
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true
   },
   "compileOnSave": true,
   "include": ["src"]

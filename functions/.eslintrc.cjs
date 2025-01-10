@@ -28,5 +28,14 @@ module.exports = {
     "quote-props": ["error", "as-needed"],
     camelcase: "off",
     "operator-linebreak": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
+      },
+    ],
   },
 };
