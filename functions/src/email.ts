@@ -13,9 +13,9 @@ export const sendEmail = async ({
   const {body} = req;
   const {from, to, subject, html, text} = body;
 
-  console.log("🚀 EMAIL FUNCTION STARTED");
-  console.log("📧 Sending email:", {from, to, subject});
-  console.log("🔑 Mailgun API Key present:", !!mailgunApiKey);
+  console.log("EMAIL FUNCTION STARTED");
+  console.log("Sending email:", {from, to, subject});
+  console.log("Mailgun API Key present:", !!mailgunApiKey);
 
   // Validate required fields
   if (!from || !to || !subject || (!html && !text)) {
@@ -87,8 +87,6 @@ export const sendEmail = async ({
     
     const errorMessage = error instanceof Error ? error.message : String(error);
     
-    // For debugging, return error details instead of throwing
-    // In production, you might want to throw the error instead
     return {
       success: false,
       error: errorMessage,
