@@ -1,14 +1,13 @@
+import {onRequest} from "firebase-functions/v2/https";
 import {initializeApp} from "firebase-admin/app";
-import * as functionsV1 from "firebase-functions/v1";
 import {app} from "./app.js";
 
 initializeApp();
 
-const runtimeOpts = {
-  timeoutSeconds: 30,
-};
-
-export const observatory = functionsV1
-  .region("europe-west6")
-  .runWith(runtimeOpts)
-  .https.onRequest(app);
+export const observatory = onRequest(
+  {
+    region: "europe-west6",
+    timeoutSeconds: 30,
+  },
+  app
+);
