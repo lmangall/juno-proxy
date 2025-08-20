@@ -1,6 +1,5 @@
 import cors from "cors";
 import express from "express";
-import * as functions from "firebase-functions";
 import {sendEmail} from "./email.js";
 import {proxy} from "./proxy.js";
 
@@ -8,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({origin: true}));
 
-const token: string = functions.config().notifications.token;
+const token: string = process.env.NOTIFICATIONS_TOKEN!;
 
 const assertToken = ({
   req,

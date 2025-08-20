@@ -1,9 +1,8 @@
 import * as express from "express";
 import {firestore} from "firebase-admin";
-import * as functions from "firebase-functions";
 import DocumentData = firestore.DocumentData;
 
-const resendApiKey: string = functions.config().mail.resend.api_key;
+const resendApiKey: string = process.env.RESEND_API_KEY!;
 
 export const sendEmail = async ({
   req: {body},
