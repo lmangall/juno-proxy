@@ -17,6 +17,11 @@ This guide provides comprehensive instructions for testing the proxy functionali
 3. **Get your Firebase Function URL:**
    After deployment, note the URL (typically: `https://europe-west6-<project-id>.cloudfunctions.net/observatory`)
 
+firebase emulators:start --only functions,firestore
+
+   http://127.0.0.1:5001/juno-proxy-b361b/europe-west6/observatory
+   
+
 ## Authentication
 
 All requests require Bearer token authentication:
@@ -35,9 +40,9 @@ Sends emails via Resend API with idempotency support.
 
 ```bash
 curl -X POST \
-  https://europe-west6-juno-proxy-b361b.cloudfunctions.net/observatory/notifications/email \
+  http://127.0.0.1:5001/juno-proxy-b361b/europe-west6/observatory/notifications/email \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer secret" \
+  -H "Authorization: Bearer jf93h287fh4983hjf928h37fgh483hf83h" \
   -H "idempotency-key: test-email-001" \
   -d '{
     "from": "noreply@yourdomain.com",
