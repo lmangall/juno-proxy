@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "juno-observatory"
-  }
+    "default": "juno-proxy-b361b"
+  },
+  "targets": {},
+  "etags": {}
 }
