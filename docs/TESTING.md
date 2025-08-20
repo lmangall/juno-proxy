@@ -1,3 +1,13 @@
+nvm use 22
+for firebase
+
+
+
+
+
+
+
+
 # Testing Guide
 
 This guide provides comprehensive instructions for testing the proxy functionality using curl commands.
@@ -38,19 +48,14 @@ Sends emails via Resend API with idempotency support.
 
 ### 1. Basic Email Send
 
+
 ```bash
-curl -X POST \
-  http://127.0.0.1:5001/juno-proxy-b361b/europe-west6/observatory/notifications/email \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer jf93h287fh4983hjf928h37fgh483hf83h" \
-  -H "idempotency-key: test-email-001" \
-  -d '{
-    "from": "noreply@yourdomain.com",
-    "to": "recipient@example.com",
-    "subject": "Test Email",
-    "text": "This is a test email sent via the proxy.",
-    "html": "<h1>Test Email</h1><p>This is a test email sent via the proxy.</p>"
-  }'
+curl -s --user "api:$MAILGUN_API_KEY" \
+    https://api.eu.mailgun.net/v3/futura.now/messages \
+    -F from="hello@futura.now" \
+    -F to="l.mangallon@gmail.com" \
+    -F subject="Test Email" \
+    -F text="This is a test email from Mailgun using curl!""
 ```
 
 **Expected Response (Success):**

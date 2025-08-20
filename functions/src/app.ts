@@ -17,22 +17,20 @@ const assertToken = ({
   res: express.Response;
 }): {valid: boolean} => {
   const authorization = req.get("authorization");
-
   if (authorization !== `Bearer ${token}`) {
     res.status(500).send("Access restricted.");
     return {valid: false};
   }
-
   return {valid: true};
 };
 
-app.post("/notifications/email", async (req, res) => {
+app.post("/notifications/email", async (req, res): Promise<void> => {
   const { valid } = assertToken({ req, res });
   if (!valid) {
-    // explicitly return after sending response
-    return res.end();
+    // Just return - response already sent by assertToken
+    return;
   }
-
+  
   try {
     await proxy({ req, res, fn: sendEmail });
   } catch (err) {
@@ -40,6 +38,5 @@ app.post("/notifications/email", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
 
 export {app};
