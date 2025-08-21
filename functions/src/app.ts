@@ -25,14 +25,14 @@ const assertToken = ({
 };
 
 app.post("/notifications/email", async (req, res): Promise<void> => {
-  const { valid } = assertToken({ req, res });
+  const {valid} = assertToken({req, res});
   if (!valid) {
-    // Just return - response already sent by assertToken
+    // Response already sent by assertToken
     return;
   }
-  
+
   try {
-    await proxy({ req, res, fn: sendEmail });
+    await proxy({req, res, fn: sendEmail});
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
